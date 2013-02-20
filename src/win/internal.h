@@ -261,7 +261,7 @@ void uv_process_getaddrinfo_req(uv_loop_t* loop, uv_getaddrinfo_t* req);
 /*
  * FS
  */
-void uv_fs_init();
+void uv__fs_init();
 void uv_process_fs_req(uv_loop_t* loop, uv_fs_t* req);
 
 
