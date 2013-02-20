@@ -484,15 +484,6 @@ UV_EXTERN void uv_close(uv_handle_t* handle, uv_close_cb close_cb);
  */
 UV_EXTERN uv_buf_t uv_buf_init(char* base, unsigned int len);
 
-/*
- * Memory allocator for uv_fs_t.
- * The size of the uv_fs_t struct depends on _FILE_OFFSET_BITS definition
- * value which can be different in user code. This function ensures that all
- * objects of uv_fs_t type have the same size and therefore can be used
- * safely. The user is responsible for freeing returned object.
- */
-UV_EXTERN uv_fs_t* uv_fs_alloc();
-
 
 /*
  * Utility function. Copies up to `size` characters from `src` to `dst`
@@ -1528,6 +1519,22 @@ struct uv_fs_s {
   uv_statbuf_t statbuf;  /* Stores the result of uv_fs_stat and uv_fs_fstat. */
   UV_FS_PRIVATE_FIELDS
 };
+
+/*
+ * Memory allocator for uv_fs_t.
+ * The size of the uv_fs_t struct depends on _FILE_OFFSET_BITS definition
+ * value which can be different in user code. This function ensures that all
+ * objects of uv_fs_t type have the same size and therefore can be used
+ * safely. The user is responsible for freeing returned object via
+ * uv_fs_free().
+ */
+UV_EXTERN uv_fs_t* uv_fs_alloc();
+
+/*
+ * Memory deallocator for uv_fs_t.
+ * See description of uv_fs_alloc().
+ */
+UV_EXTERN void uv_fs_free(uv_fs_t* req);
 
 UV_EXTERN void uv_fs_req_cleanup(uv_fs_t* req);
 

@@ -91,8 +91,13 @@ uv_buf_t uv_buf_init(char* base, unsigned int len) {
   return buf;
 }
 
+
 uv_fs_t* uv_fs_alloc() {
   return (uv_fs_t*)malloc(sizeof(uv_fs_t));
+}
+
+void uv_fs_free(uv_fs_t* req) {
+	free(req);
 }
 
 
