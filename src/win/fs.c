@@ -99,7 +99,7 @@ const WCHAR LONG_PATH_PREFIX[] = L"\\\\?\\";
 const WCHAR LONG_PATH_PREFIX_LEN = 4;
 
 
-void uv__fs_init() {
+void uv_fs_init() {
   assert(!_set_fmode(_O_BINARY));
 }
 
