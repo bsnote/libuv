@@ -484,6 +484,15 @@ UV_EXTERN void uv_close(uv_handle_t* handle, uv_close_cb close_cb);
  */
 UV_EXTERN uv_buf_t uv_buf_init(char* base, unsigned int len);
 
+/*
+ * Memory allocator for uv_fs_t.
+ * The size of the uv_fs_t struct depends on _FILE_OFFSET_BITS definition
+ * value which can be different in user code. This function ensures that all
+ * objects of uv_fs_t type have the same size and therefore can be used
+ * safely. The user is responsible for freeing returned object.
+ */
+UV_EXTERN uv_fs_t* uv_fs_alloc();
+
 
 /*
  * Utility function. Copies up to `size` characters from `src` to `dst`
@@ -1468,7 +1477,8 @@ UV_EXTERN void uv_free_interface_addresses(uv_interface_address_t* addresses,
  * thread pool) and call the specified callback in the specified loop after
  * completion. If the user gives NULL as the callback the blocking system
  * call will be called synchronously. req should be a pointer to an
- * uninitialized uv_fs_t object.
+ * uninitialized uv_fs_t object. Memory for the object must always be
+ * allocated via uv_fs_alloc().
  *
  * uv_fs_req_cleanup() must be called after completion of the uv_fs_
  * function to free any internal memory allocations associated with the

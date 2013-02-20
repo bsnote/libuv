@@ -91,6 +91,10 @@ uv_buf_t uv_buf_init(char* base, unsigned int len) {
   return buf;
 }
 
+uv_fs_t* uv_fs_alloc() {
+  return (uv_fs_t*)malloc(sizeof(uv_fs_t));
+}
+
 
 const uv_err_t uv_ok_ = { UV_OK, 0 };
 
