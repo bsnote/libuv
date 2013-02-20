@@ -26,6 +26,7 @@
 #include <fcntl.h>
 #include <io.h>
 #include <limits.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/utime.h>
 #include <stdio.h>
@@ -99,7 +100,7 @@ const WCHAR LONG_PATH_PREFIX_LEN = 4;
 
 
 void uv_fs_init() {
-  _fmode = _O_BINARY;
+	assert(!_set_fmode(_O_BINARY));
 }
 
 
